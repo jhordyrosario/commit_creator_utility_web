@@ -1,6 +1,6 @@
 import React from "react";
 
-const GeneratedCommitDisplay = ({ message }) => (
+const GeneratedCommitDisplay = ({ commitMessage }) => (
     <div className="generated-commit-display">
         <label>Generated Commit Message:</label>
         <pre>{commitMessage}</pre>

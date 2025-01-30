@@ -1,35 +1,43 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from 'react';
+import Header from './components/Header';
+import CommitTypeSelector from './components/CommitTypeSelector';
+import ScopeInput from './components/ScopeInput';
+import ShortDescriptionInput from './components/ShortDescriptionInput';
+import DetailedDescriptionInput from './components/DetailedDescriptionInput';
+import BreakingChangeInput from './components/BreakingChangeInput';
+import IssueReferenceInput from './components/IssueReferenceInput';
+import GeneratedCommitDisplay from './components/GeneratedCommitDisplay';
+import CopyToClipboardButton from './components/CopyToClipboardButton';
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  const [type, setType] = useState('feat');
+  const [scope, setScope] = useState('');
+  const [shortDescription, setShortDescription] = useState('');
+  const [details, setDetails] = useState('');
+  const [breakingChange, setBreakingChange] = useState('');
+  const [issue, setIssue] = useState('');
+
+  const generateCommitMessage = () => {
+    let commit = `${type}${scope ? `(${scope})` : ''}: ${shortDescription}`;
+    if (details) commit += `\n\n${details}`;
+    if (breakingChange) commit += `\n\nBREAKING CHANGE: ${breakingChange}`;
+    if (issue) commit += `\n\nRefs: ${issue}`;
+    return commit;
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div className="app">
+      <Header />
+      <CommitTypeSelector selectedType={type} onChange={setType} />
+      <ScopeInput scope={scope} onChange={setScope} />
+      <ShortDescriptionInput description={shortDescription} onChange={setShortDescription} />
+      <DetailedDescriptionInput details={details} onChange={setDetails} />
+      <BreakingChangeInput breakingChange={breakingChange} onChange={setBreakingChange} />
+      <IssueReferenceInput issue={issue} onChange={setIssue} />
+      <GeneratedCommitDisplay commitMessage={generateCommitMessage()} />
+      <CopyToClipboardButton text={generateCommitMessage()} />
+    </div>
+  );
+};
 
-export default App
+export default App;

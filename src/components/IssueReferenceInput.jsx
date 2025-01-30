@@ -7,7 +7,7 @@ const IssueReferenceInput = ({ issue, onChange }) => (
             type="text"
             placeholder="e.g., #123"
             value={issue}
-            onChange={onChange(e.target.value)}
+            onChange={(e) => onChange(e.target.value)}
         />
     </div>
 );
