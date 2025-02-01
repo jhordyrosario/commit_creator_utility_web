@@ -3,7 +3,7 @@ import React from 'react';
 const Header = () => (
   <header>
     <h1>Commit Message Utility</h1>
-    <p>Create commit messages using conventional commits specification</p>
+    <p><b>Create commit messages using conventional commits specification</b></p>
   </header>
 );
 
